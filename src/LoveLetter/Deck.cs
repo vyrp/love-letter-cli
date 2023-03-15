@@ -55,6 +55,12 @@ namespace LoveLetter
             return cards[--count];
         }
 
+        public void Print()
+        {
+            Console.WriteLine($"Deck: {count:00} card(s)");
+            Console.WriteLine();
+        }
+
         private static void Shuffle(Card[] cards)
         {
             int n = cards.Length;

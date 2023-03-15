@@ -13,5 +13,10 @@ namespace LoveLetter
         public char Name { get; }
 
         public Card Hand { get; }
+
+        public void Print()
+        {
+            Console.WriteLine($"Player {Name}");
+        }
     }
 }

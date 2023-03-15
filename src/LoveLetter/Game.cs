@@ -37,7 +37,35 @@ namespace LoveLetter
 
         public void Run()
         {
-            throw new NotImplementedException();
+            Console.Clear();
+            while (true)
+            {
+                PrintState();
+                PlayTurn();
+            }
+        }
+
+        private void PrintState()
+        {
+            Console.SetCursorPosition(0, 0);
+
+            Console.WriteLine("  ~*~ Love Letter ~*~");
+            Console.WriteLine();
+
+            foreach (Player player in Players)
+            {
+                player.Print();
+            }
+
+            Console.WriteLine();
+
+            Deck.Print();
+        }
+
+        private void PlayTurn()
+        {
+            Console.Write("> ");
+            Console.ReadLine();
         }
     }
 }
