@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -6,6 +7,7 @@ namespace LoveLetter
 {
     public sealed class Game
     {
+        private readonly List<Card> discardPile;
         private int activePlayerIdx;
         private int activePlayers;
 
@@ -13,6 +15,8 @@ namespace LoveLetter
         {
             Deck = deck;
             Players = players;
+
+            discardPile = new List<Card>();
             activePlayerIdx = 0;
             activePlayers = players.Length;
         }
@@ -59,6 +63,7 @@ namespace LoveLetter
 
         public void KnockOut(Player targetPlayer)
         {
+            discardPile.Add(targetPlayer.Hand);
             targetPlayer.HasBeenKnockedOut = true;
             activePlayers--;
         }
@@ -113,7 +118,10 @@ namespace LoveLetter
 
             foreach (var player in Players)
             {
-                Console.WriteLine($"Player {player.Name}: {player.Hand.Number}");
+                if (!player.HasBeenKnockedOut)
+                {
+                    Console.WriteLine($"Player {player.Name}: {player.Hand.Number}");
+                }
             }
 
             Console.WriteLine();
@@ -138,6 +146,15 @@ namespace LoveLetter
             Console.WriteLine();
 
             Deck.Print();
+
+            Console.Write("Discard pile:");
+            foreach (Card card in discardPile)
+            {
+                Console.Write($" {card.Number}");
+            }
+            Console.WriteLine();
+
+            Console.WriteLine();
         }
     }
 }
