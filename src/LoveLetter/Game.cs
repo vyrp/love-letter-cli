@@ -59,7 +59,7 @@ namespace LoveLetter
             Card newCard = Deck.Draw();
             PrintState();
 
-            Players[activePlayerIdx].PlayTurn(newCard);
+            Players[activePlayerIdx].PlayTurn(this, newCard);
 
             activePlayerIdx = (activePlayerIdx + 1) % Players.Length;
         }

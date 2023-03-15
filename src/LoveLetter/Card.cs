@@ -25,7 +25,7 @@ namespace LoveLetter
 
         public abstract byte Number { get; }
 
-        public void Play()
+        public virtual void Play(Game game, Player currentPlayer)
         {
             Console.WriteLine($"Playing {Name}...");
             Console.ReadLine();

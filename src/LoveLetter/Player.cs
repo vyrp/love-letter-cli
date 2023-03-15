@@ -29,7 +29,7 @@ namespace LoveLetter
             Console.WriteLine();
         }
 
-        public void PlayTurn(Card newCard)
+        public void PlayTurn(Game game, Card newCard)
         {
             Console.WriteLine($"  ~*~ Player {Name}'s turn ~*~");
             Console.WriteLine();
@@ -46,7 +46,7 @@ namespace LoveLetter
             playedCards.Add(chosenCard);
             Hand = otherCard;
 
-            chosenCard.Play();
+            chosenCard.Play(game, this);
         }
 
         private static (Card chosenCard, Card otherCard) ChooseCardToPlay(Card card1, Card card2)
