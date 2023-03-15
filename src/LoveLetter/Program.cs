@@ -6,7 +6,7 @@ namespace LoveLetter
     {
         public static int Main(string[] args)
         {
-            if (args.Length != 1 || byte.TryParse(args[0], out byte numberOfPlayers))
+            if (args.Length != 1 || !byte.TryParse(args[0], out byte numberOfPlayers))
             {
                 Console.WriteLine("Usage:");
                 Console.WriteLine(@"    .\LoveLetter.exe <number-of-players>");
