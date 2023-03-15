@@ -6,12 +6,14 @@ namespace LoveLetter
     public sealed class Game
     {
         private int activePlayerIdx;
+        private int activePlayers;
 
         private Game(Deck deck, Player[] players)
         {
             Deck = deck;
             Players = players;
             activePlayerIdx = 0;
+            activePlayers = players.Length;
         }
 
         public Deck Deck { get; }
@@ -46,12 +48,18 @@ namespace LoveLetter
             Console.Write("> ");
             Console.ReadLine();
 
-            while (Deck.Count > 0)
+            while (Deck.Count > 0 && activePlayers >= 2)
             {
                 PlayTurn();
             }
 
             PrintWinner();
+        }
+
+        public void KnockOut(Player targetPlayer)
+        {
+            targetPlayer.HasBeenKnockedOut = true;
+            activePlayers--;
         }
 
         private void PlayTurn()
@@ -61,7 +69,11 @@ namespace LoveLetter
 
             Players[activePlayerIdx].PlayTurn(this, newCard);
 
-            activePlayerIdx = (activePlayerIdx + 1) % Players.Length;
+            do
+            {
+                activePlayerIdx = (activePlayerIdx + 1) % Players.Length;
+            }
+            while (Players[activePlayerIdx].HasBeenKnockedOut);
         }
 
         private void PrintWinner()
@@ -78,7 +90,7 @@ namespace LoveLetter
 
             Console.WriteLine();
 
-            Player winner = Players.MaxBy(player => player.Hand.Number)!;
+            Player winner = Players.Where(player => !player.HasBeenKnockedOut).MaxBy(player => player.Hand.Number)!;
             Console.WriteLine($"Winner: {winner.Name}");
         }
 

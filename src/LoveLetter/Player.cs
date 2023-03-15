@@ -12,11 +12,14 @@ namespace LoveLetter
             Name = name;
             Hand = initialHand ?? throw new ArgumentNullException(nameof(initialHand));
             playedCards = new List<Card>();
+            HasBeenKnockedOut = false;
         }
 
         public char Name { get; }
 
         public Card Hand { get; private set; }
+
+        public bool HasBeenKnockedOut { get; set; }
 
         public void Print()
         {
@@ -24,6 +27,11 @@ namespace LoveLetter
             foreach (Card card in playedCards)
             {
                 Console.Write($" {card.Number}");
+            }
+
+            if (HasBeenKnockedOut)
+            {
+                Console.Write(" X");
             }
 
             Console.WriteLine();
