@@ -2,7 +2,7 @@
 
 namespace LoveLetter
 {
-    public abstract partial class Card
+    public abstract class Card
     {
         public static readonly Card Princess = new Princess();
         public static readonly Card Countess = new Countess();
