@@ -88,10 +88,17 @@ namespace LoveLetter
                     continue;
                 }
 
-                if (Players.FirstOrDefault(player => player.Name == selection) is Player chosenPlayer)
+                if (Players.FirstOrDefault(player => player.Name == selection) is not Player chosenPlayer)
                 {
-                    return chosenPlayer;
+                    continue;
                 }
+
+                if (chosenPlayer.HasBeenKnockedOut)
+                {
+                    continue;
+                }
+
+                return chosenPlayer;
             }
         }
 
