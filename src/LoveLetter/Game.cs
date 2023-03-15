@@ -46,10 +46,40 @@ namespace LoveLetter
             Console.Write("> ");
             Console.ReadLine();
 
-            while (true)
+            while (Deck.Count > 0)
             {
                 PlayTurn();
             }
+
+            PrintWinner();
+        }
+
+        private void PlayTurn()
+        {
+            Card newCard = Deck.Draw();
+            PrintState();
+
+            Players[activePlayerIdx].PlayTurn(newCard);
+
+            activePlayerIdx = (activePlayerIdx + 1) % Players.Length;
+        }
+
+        private void PrintWinner()
+        {
+            PrintState();
+
+            Console.WriteLine("  ~*~ Hands ~*~");
+            Console.WriteLine();
+
+            foreach (var player in Players)
+            {
+                Console.WriteLine($"Player {player.Name}: {player.Hand.Number}");
+            }
+
+            Console.WriteLine();
+
+            Player winner = Players.MaxBy(player => player.Hand.Number)!;
+            Console.WriteLine($"Winner: {winner.Name}");
         }
 
         private void PrintState()
@@ -68,16 +98,6 @@ namespace LoveLetter
             Console.WriteLine();
 
             Deck.Print();
-        }
-
-        private void PlayTurn()
-        {
-            Card newCard = Deck.Draw();
-            PrintState();
-
-            Players[activePlayerIdx].PlayTurn(newCard);
-
-            activePlayerIdx = (activePlayerIdx + 1) % Players.Length;
         }
     }
 }
