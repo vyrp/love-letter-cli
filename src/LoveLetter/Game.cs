@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace LoveLetter
 {
@@ -60,6 +61,33 @@ namespace LoveLetter
         {
             targetPlayer.HasBeenKnockedOut = true;
             activePlayers--;
+        }
+
+        public Player ChooseNonActivePlayer()
+        {
+            char currentPlayerName = Players[activePlayerIdx].Name;
+
+            Console.WriteLine("Choose another player:");
+            while (true)
+            {
+                Console.Write("> ");
+                if (!char.TryParse(Console.ReadLine(), out char selection))
+                {
+                    continue;
+                }
+
+                selection = char.ToUpperInvariant(selection);
+
+                if (selection == currentPlayerName)
+                {
+                    continue;
+                }
+
+                if (Players.FirstOrDefault(player => player.Name == selection) is Player chosenPlayer)
+                {
+                    return chosenPlayer;
+                }
+            }
         }
 
         private void PlayTurn()

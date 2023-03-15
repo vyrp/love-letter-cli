@@ -12,7 +12,7 @@ namespace LoveLetter.Cards
         public override void Play(Game game, Player currentPlayer)
         {
             Console.WriteLine($"Playing {Name}...");
-            Player targetPlayer = ChooseAnotherPlayer(game, currentPlayer);
+            Player targetPlayer = game.ChooseNonActivePlayer();
             byte namedCard = NameANonGuardCard();
 
             if (targetPlayer.Hand.Number == namedCard)
@@ -26,31 +26,6 @@ namespace LoveLetter.Cards
             }
 
             Console.ReadLine();
-        }
-
-        private static Player ChooseAnotherPlayer(Game game, Player currentPlayer)
-        {
-            Console.WriteLine("Choose another player:");
-            while (true)
-            {
-                Console.Write("> ");
-                if (!char.TryParse(Console.ReadLine(), out char selection))
-                {
-                    continue;
-                }
-
-                selection = char.ToUpperInvariant(selection);
-
-                if (selection == currentPlayer.Name)
-                {
-                    continue;
-                }
-
-                if (game.Players.FirstOrDefault(player => player.Name == selection) is Player chosenPlayer)
-                {
-                    return chosenPlayer;
-                }
-            }
         }
 
         private static byte NameANonGuardCard()
