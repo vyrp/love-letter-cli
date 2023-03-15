@@ -5,10 +5,12 @@ namespace LoveLetter
     public sealed class Deck
     {
         private readonly Card[] cards;
+        private int count;
 
         private Deck(Card[] cards)
         {
             this.cards = cards;
+            count = cards.Length;
         }
 
         public static Deck CreateDefault()
@@ -45,7 +47,12 @@ namespace LoveLetter
 
         public Card Draw()
         {
-            throw new NotImplementedException();
+            if (count == 0)
+            {
+                throw new InvalidOperationException("Deck is empty.");
+            }
+
+            return cards[--count];
         }
 
         private static void Shuffle(Card[] cards)
