@@ -5,10 +5,13 @@ namespace LoveLetter
 {
     public sealed class Game
     {
+        private int activePlayerIdx;
+
         private Game(Deck deck, Player[] players)
         {
             Deck = deck;
             Players = players;
+            activePlayerIdx = 0;
         }
 
         public Deck Deck { get; }
@@ -38,15 +41,20 @@ namespace LoveLetter
         public void Run()
         {
             Console.Clear();
+            PrintState();
+            Console.WriteLine("Press any key to start.");
+            Console.Write("> ");
+            Console.ReadLine();
+
             while (true)
             {
-                PrintState();
                 PlayTurn();
             }
         }
 
         private void PrintState()
         {
+            Console.Clear();
             Console.SetCursorPosition(0, 0);
 
             Console.WriteLine("  ~*~ Love Letter ~*~");
@@ -64,8 +72,12 @@ namespace LoveLetter
 
         private void PlayTurn()
         {
-            Console.Write("> ");
-            Console.ReadLine();
+            Card newCard = Deck.Draw();
+            PrintState();
+
+            Players[activePlayerIdx].PlayTurn(newCard);
+
+            activePlayerIdx = (activePlayerIdx + 1) % Players.Length;
         }
     }
 }

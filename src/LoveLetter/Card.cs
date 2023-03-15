@@ -1,4 +1,6 @@
-﻿using LoveLetter.Cards;
+﻿using System;
+
+using LoveLetter.Cards;
 
 namespace LoveLetter
 {
@@ -22,5 +24,11 @@ namespace LoveLetter
         public abstract string Name { get; }
 
         public abstract byte Number { get; }
+
+        public void Play()
+        {
+            Console.WriteLine($"Playing {Name}...");
+            Console.ReadLine();
+        }
     }
 }
